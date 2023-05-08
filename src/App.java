@@ -5,6 +5,8 @@ public class App {
 
 	public static final char O = 'O';
 	public static final char X = 'X';
+	public static Scanner entree = new Scanner(System.in);
+	public static int input;
 
 	private static void afficherGrille(char [] grille) {
 		System.out.println("[" + grille[0] + '|' + grille[1] + '|' + grille[2] + "]");
@@ -13,6 +15,14 @@ public class App {
 	}
 
 	public static void main(String[] args) throws Exception {
+		
+		while(true) {
+			commencerPartie();
+		}
+
+	}
+
+	public static void commencerPartie() {
 		char [] grille = 
 		{ 
 			'1', '2', '3',
@@ -20,8 +30,7 @@ public class App {
 			'7', '8', '9'
 		};
 
-		Scanner scan = new Scanner(System.in);
-		int input;
+		
 
 		SecureRandom random = new SecureRandom();
 		int nbAleatoire = random.nextInt(2);
@@ -51,6 +60,11 @@ public class App {
 				break;
 			}
 
+			if (tour == 9) {
+				System.out.println("Aucun joueur n'a gagné ! ");
+				break;
+			}
+
 			if (joueur == O) {
 				joueur = X;
 			} else {
@@ -58,7 +72,7 @@ public class App {
 			}
 
 			System.out.println("Indiquez la position sur laquelle mettre " + joueur + " :");
-			input = scan.nextInt();
+			input = entree.nextInt();
 
 			boolean positionPrise = true;
 
@@ -66,7 +80,7 @@ public class App {
 				positionPrise = false;
 				if (grille[input-1] == O || grille[input-1] == X) {
 					System.out.println("Position déjà prise, indiquez une autre position sur laquelle mettre " + joueur + " : ");
-					input = scan.nextInt();
+					input = entree.nextInt();
 					positionPrise = true;
 				}
 			}
@@ -75,9 +89,7 @@ public class App {
 			tour += 1;
 		}
 
-		System.out.println("Aucun joueur n'a gagné ! ");
+		
 		afficherGrille(grille);
-
-
 	}
 }
